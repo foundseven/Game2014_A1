@@ -610,7 +610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _availableColors:
-  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 1, b: 0.6543071, a: 1}
   - {r: 0.17572784, g: 1, b: 0, a: 1}
   - {r: 0, g: 0.19104338, b: 1, a: 1}
   - {r: 1, g: 0.9190924, b: 0, a: 1}
