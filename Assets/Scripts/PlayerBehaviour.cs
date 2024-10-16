@@ -4,28 +4,41 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    [SerializeField] private float _speed;
+    [SerializeField] 
+    private float _speed;
 
-    [SerializeField] private Boundry _horizontalBoundry;
-    [SerializeField] private Boundry _verticalBoundry;
+    [SerializeField] 
+    private Boundry _horizontalBoundry;
+
+    [SerializeField] 
+    private Boundry _verticalBoundry;
+
 
     bool _isTestMobile;
+    bool _isMobilePlatform = true;
 
     Camera _camera;
     Vector2 _destination;
+    private SpriteRenderer _spriteRenderer;
+    private ColorManager _colorManager;
 
-    bool _isMobilePlatform = true;
+    //getters n setters if needed
+    public Color CurrentColor { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
         _camera = Camera.main;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _colorManager = FindObjectOfType<ColorManager>();
 
         if (!_isTestMobile)
         {
             _isMobilePlatform = Application.platform == RuntimePlatform.Android ||
                             Application.platform == RuntimePlatform.IPhonePlayer;
         }
+
+        StartCoroutine(ChangeColorofPlayer());
     }
 
     // Update is called once per frame
@@ -92,4 +105,25 @@ public class PlayerBehaviour : MonoBehaviour
             transform.position = new Vector3(transform.position.x, _verticalBoundry.min, 0);
         }
     }
+
+    void SetRandomColor()
+    {
+        CurrentColor = _colorManager.GetRandomColor();
+        _spriteRenderer.color = CurrentColor;
+    }
+
+    //Coroutine to change the players color
+    IEnumerator ChangeColorofPlayer()
+    {
+        while(true) 
+        {
+            SetRandomColor();
+
+            //waiting eloted seconds
+            yield return new WaitForSeconds(5f);
+
+        }
+    }
+
+
 }
