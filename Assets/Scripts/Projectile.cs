@@ -13,10 +13,24 @@ public class Projectile : MonoBehaviour
         transform.Translate(Vector2.up * _speed * Time.deltaTime);
     }
 
-    //destroy  projectile when it leaves the screen for rn
-
+    //destroy
     private void DestroyProjectile()
     {
         Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Hit!");
+        if (collision.CompareTag("Enemy"))
+        {
+            StartCoroutine(HandleEnemyHit(collision));
+        }
+    }
+
+    private IEnumerator HandleEnemyHit(Collider2D enemyCollider)
+    {
+        yield return enemyCollider.GetComponent<EnemyBehaviour>().DyingRoutine();
+        DestroyProjectile();
     }
 }
