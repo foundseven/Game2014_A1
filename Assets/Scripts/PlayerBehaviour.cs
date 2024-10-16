@@ -13,6 +13,12 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] 
     private Boundry _verticalBoundry;
 
+    [SerializeField]
+    private GameObject _projectilePrefab;
+
+    [SerializeField]
+    private Transform _shootingPoint;
+
 
     bool _isTestMobile;
     bool _isMobilePlatform = true;
@@ -55,6 +61,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         Move();
         CheckBoundaries();
+        ShootWithSpacebar();
     }
 
     void Move()
@@ -78,6 +85,24 @@ public class PlayerBehaviour : MonoBehaviour
         {
             _destination = _camera.ScreenToWorldPoint(touch.position);
             _destination = Vector2.Lerp(transform.position, _destination, _speed * Time.deltaTime);
+
+            if(touch.phase == TouchPhase.Began)
+            {
+                Shoot();
+            }
+        }
+    }
+
+    void Shoot()
+    {
+        Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity);
+    }
+
+    void ShootWithSpacebar()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Shoot();
         }
     }
 
