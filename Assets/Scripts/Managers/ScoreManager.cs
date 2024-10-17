@@ -30,9 +30,15 @@ public class ScoreManager : MonoBehaviour
         score += amount;
         UpdateScoreUI();
     }
+    public void DecreaseScore(int amount)
+    {
+        score -= amount;
+        UpdateScoreUI();
+    }
 
     public void UpdateScoreUI()
     {
         _scoreText.text = "Score: " + score;
     }
+
 }

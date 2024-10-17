@@ -100,6 +100,7 @@ public class EnemyBehaviour : MonoBehaviour
             else
             {
                 Debug.Log("NO POINTS!");
+                ScoreManager.instance.DecreaseScore(25);
             }
             //is the enemy and the player the same color?
             Reset();
