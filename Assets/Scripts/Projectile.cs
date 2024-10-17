@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
 
     private Vector2 _targetDirection;
 
+
     void Update()
     {
         //moves the porjectile upwards every frame
@@ -40,6 +41,7 @@ public class Projectile : MonoBehaviour
     private IEnumerator HandleEnemyHit(Collider2D enemyCollider)
     {
         yield return enemyCollider.GetComponent<EnemyBehaviour>().DyingRoutine();
+        ScoreManager.instance.ChangeScore(10);
         DestroyProjectile();
     }
 }

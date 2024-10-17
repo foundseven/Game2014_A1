@@ -94,6 +94,8 @@ public class EnemyBehaviour : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             Debug.Log("The enemy hit the player!");
+
+            //is the enemy and the player the same color?
             Reset();
         }
     }
