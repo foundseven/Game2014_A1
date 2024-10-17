@@ -9,11 +9,20 @@ public class EnemyBehaviour : MonoBehaviour
 
     private float _speed = 3;
 
-    [SerializeField] Boundry _verticalSpeedRange;
-    [SerializeField] Boundry _horizonalSpeedRange;
+    [SerializeField] 
+    Boundry _verticalSpeedRange;
 
-    [SerializeField] Boundry _verticalBoundry;
-    [SerializeField] Boundry _horizontalBoundry;
+    [SerializeField] 
+    Boundry _horizonalSpeedRange;
+
+    [SerializeField] 
+    Boundry _verticalBoundry;
+
+    [SerializeField] 
+    Boundry _horizontalBoundry;
+
+    [SerializeField]
+    AudioClip _hitSound;
 
     SpriteRenderer _spriteRenderer;
 
@@ -35,19 +44,6 @@ public class EnemyBehaviour : MonoBehaviour
         else
         {
             Debug.Log("No instance set!");
-        }
-    }
-
-    void MoveEnemy()
-    {
-        transform.position = new Vector2(Mathf.PingPong(_horizontalSpeed * Time.time,
-                           _horizontalBoundry.max - _horizontalBoundry.min) + _horizontalBoundry.min,
-                           transform.position.y + _verticalSpeed * Time.deltaTime);
-
-        //checks if player is off the screen from the bottom and resets accordingly
-        if (transform.position.y < _verticalBoundry.min)
-        {
-            Reset();
         }
     }
 
@@ -93,8 +89,18 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            Debug.Log("The enemy hit the player!");
-
+            Debug.Log("The enemy collided with the player!");
+            SoundManager.instance.PlayAudioClip(_hitSound);
+            
+            //add logic so that we add points accordingly
+            if(_spriteRenderer.color == PlayerBehaviour.instance.CurrentColor)
+            {
+                ScoreManager.instance.ChangeScore(25);
+            }
+            else
+            {
+                Debug.Log("NO POINTS!");
+            }
             //is the enemy and the player the same color?
             Reset();
         }

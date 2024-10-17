@@ -28,7 +28,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     Camera _camera;
     Vector2 _destination;
-    private SpriteRenderer _spriteRenderer;
+    public SpriteRenderer _spriteRenderer;
     private ColorManager _colorManager;
 
     //getters n setters if needed
@@ -112,8 +112,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void Shoot()
     {
-        //Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity);
-
         GameObject projectile = Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity);
 
         Transform closestEnemy = FindClosestEnemy(); // Find the closest enemy

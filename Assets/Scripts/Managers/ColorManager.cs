@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ColorManager : MonoBehaviour
 {
-    [SerializeField] 
-    private List<Color> _availableColors;
+    Color[] _colors = {Color.green, Color.cyan,
+    Color.magenta, Color.yellow};
 
     // Get a random color from the list
     public Color GetRandomColor()
     {
-        return _availableColors[Random.Range(0, _availableColors.Count)];
+        return _colors[Random.Range(0, _colors.Length)];
     }
 }

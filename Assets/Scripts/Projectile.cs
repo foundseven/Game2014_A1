@@ -9,6 +9,9 @@ public class Projectile : MonoBehaviour
 
     private Vector2 _targetDirection;
 
+    [SerializeField]
+    AudioClip _hitSound;
+
 
     void Update()
     {
@@ -34,6 +37,7 @@ public class Projectile : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             Debug.Log("Hit the enemy!");
+            SoundManager.instance.PlayAudioClip(_hitSound);
             StartCoroutine(HandleEnemyHit(collision));
         }
     }

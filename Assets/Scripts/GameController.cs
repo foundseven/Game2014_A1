@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField]
+    AudioClip _buttonPressSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +35,18 @@ public class GameController : MonoBehaviour
 
     public void FireButton()
     {
+        PlayButtonPressSound();
         PlayerBehaviour.instance.Shoot();
+    }
+
+    void PlayButtonPressSound()
+    {
+        SoundManager.instance.PlayAudioClip(_buttonPressSound);
+    }
+
+    public IEnumerator SoundRoutine()
+    {
+        PlayButtonPressSound();
+        yield return new WaitForSeconds(1.0f);
     }
 }
