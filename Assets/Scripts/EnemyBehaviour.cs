@@ -7,6 +7,8 @@ public class EnemyBehaviour : MonoBehaviour
     private float _verticalSpeed;
     private float _horizontalSpeed;
 
+    private float _speed = 3;
+
     [SerializeField] Boundry _verticalSpeedRange;
     [SerializeField] Boundry _horizonalSpeedRange;
 
@@ -25,7 +27,15 @@ public class EnemyBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveEnemy();
+        //MoveEnemy();
+        if(PlayerBehaviour.instance != null) 
+        {
+            TrackPlayer();
+        }
+        else
+        {
+            Debug.Log("No instance set!");
+        }
     }
 
     void MoveEnemy()
@@ -33,6 +43,7 @@ public class EnemyBehaviour : MonoBehaviour
         transform.position = new Vector2(Mathf.PingPong(_horizontalSpeed * Time.time,
                            _horizontalBoundry.max - _horizontalBoundry.min) + _horizontalBoundry.min,
                            transform.position.y + _verticalSpeed * Time.deltaTime);
+
         //checks if player is off the screen from the bottom and resets accordingly
         if (transform.position.y < _verticalBoundry.min)
         {
@@ -40,6 +51,18 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
+    void TrackPlayer()
+    {
+        //getting the players location
+        Vector3 playerPosition = PlayerBehaviour.instance.transform.position;
+
+        //get the direction to the player
+        Vector3 directionToPlayer = (playerPosition - transform.position).normalized;
+
+        //move towards the player accordingly
+        transform.position += directionToPlayer * _speed * Time.deltaTime;
+
+    }
 
     public IEnumerator DyingRoutine()
     {
@@ -47,6 +70,7 @@ public class EnemyBehaviour : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         _spriteRenderer.enabled = false;
         GetComponent<Collider2D>().enabled = false;
+        Reset();
     }
     public void DyingSequence()
     {
@@ -63,5 +87,14 @@ public class EnemyBehaviour : MonoBehaviour
         //transform.localScale = new Vector3(1f + Random.Range(-.3f, .3f), 1f + Random.Range(-.3f, .3f), 1f);
         _verticalSpeed = Random.Range(_verticalSpeedRange.min, _verticalSpeedRange.max);
         _horizontalSpeed = Random.Range(_horizonalSpeedRange.min, _horizonalSpeedRange.max);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Player"))
+        {
+            Debug.Log("The enemy hit the player!");
+            Reset();
+        }
     }
 }

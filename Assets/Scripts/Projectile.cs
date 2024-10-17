@@ -5,12 +5,21 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] 
-    private float _speed = 5f;
+    private float _speed = 3f;
+
+    private Vector2 _targetDirection;
 
     void Update()
     {
         //moves the porjectile upwards every frame
-        transform.Translate(Vector2.up * _speed * Time.deltaTime);
+        //transform.Translate(Vector2.up * _speed * Time.deltaTime);
+        //move towards enemy
+        transform.Translate(_targetDirection * _speed * Time.deltaTime);
+    }
+
+    public void MoveToEnemy(Transform enemyTransform)
+    {
+        _targetDirection = (enemyTransform.position - transform.position).normalized;
     }
 
     //destroy
@@ -21,9 +30,9 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Hit!");
         if (collision.CompareTag("Enemy"))
         {
+            Debug.Log("Hit the enemy!");
             StartCoroutine(HandleEnemyHit(collision));
         }
     }

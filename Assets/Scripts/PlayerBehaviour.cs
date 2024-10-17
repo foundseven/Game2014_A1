@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
+
+    //creating an instance
+    public static PlayerBehaviour instance { get; set; }
     [SerializeField] 
     private float _speed;
 
@@ -30,6 +33,18 @@ public class PlayerBehaviour : MonoBehaviour
 
     //getters n setters if needed
     public Color CurrentColor { get; private set; }
+
+    void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -95,7 +110,16 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Shoot()
     {
-        Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity);
+        //Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity);
+
+        GameObject projectile = Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity);
+
+        Transform closestEnemy = FindClosestEnemy(); // Find the closest enemy
+
+        if (closestEnemy != null)
+        {
+            projectile.GetComponent<Projectile>().MoveToEnemy(closestEnemy); // Pass the target to the projectile
+        }
     }
 
     void ShootWithSpacebar()
@@ -105,6 +129,32 @@ public class PlayerBehaviour : MonoBehaviour
             Shoot();
         }
     }
+
+    Transform FindClosestEnemy()
+    {
+        //make an array of enemies from enemy behaviour
+        EnemyBehaviour[] enemies = FindObjectsOfType<EnemyBehaviour>();
+        Transform closestEnemy = null;
+
+        float minDistance = Mathf.Infinity;
+
+        //for each enemy in the enemy array
+        foreach (EnemyBehaviour enemy in enemies)
+        {
+            //calc the POS
+            float distance = Vector2.Distance(transform.position, enemy.transform.position);
+
+            //if the distance is < than the min
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closestEnemy = enemy.transform;
+            }
+        }
+
+        return closestEnemy;
+    }
+
 
     void CheckBoundaries()
     {
@@ -149,6 +199,4 @@ public class PlayerBehaviour : MonoBehaviour
 
         }
     }
-
-
 }
