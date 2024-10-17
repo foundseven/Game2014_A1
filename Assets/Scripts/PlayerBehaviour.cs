@@ -68,9 +68,11 @@ public class PlayerBehaviour : MonoBehaviour
         if (_isMobilePlatform)
         {
             GetTouchInput();
+            Debug.Log("Mobile working");
         }
         else
         {
+           // Debug.Log("Trad working");
             GetTraditionalInput();
         }
 
@@ -108,7 +110,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    void Shoot()
+    public void Shoot()
     {
         //Instantiate(_projectilePrefab, _shootingPoint.position, Quaternion.identity);
 

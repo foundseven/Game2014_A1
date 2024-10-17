@@ -30,4 +30,9 @@ public class GameController : MonoBehaviour
     {
         SceneManager.LoadScene(2);
     }
+
+    public void FireButton()
+    {
+        PlayerBehaviour.instance.Shoot();
+    }
 }
