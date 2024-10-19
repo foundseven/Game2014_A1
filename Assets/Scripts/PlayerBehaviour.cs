@@ -7,8 +7,12 @@ public class PlayerBehaviour : MonoBehaviour
 
     //creating an instance
     public static PlayerBehaviour instance { get; set; }
+
     [SerializeField] 
     private float _speed;
+
+    [SerializeField]
+    private int _lives = 3;
 
     [SerializeField] 
     private Boundry _horizontalBoundry;
@@ -198,5 +202,12 @@ public class PlayerBehaviour : MonoBehaviour
             yield return new WaitForSeconds(5f);
 
         }
+    }
+
+    public void LoseLife()
+    {
+        Debug.Log($"Lives left: {_lives}");
+
+        HeartSystem.instance.TakeHeartDamage(1);
     }
 }
