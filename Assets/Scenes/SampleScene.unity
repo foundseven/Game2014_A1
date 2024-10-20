@@ -1488,7 +1488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &753239281
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3045,7 +3045,7 @@ MonoBehaviour:
   - {fileID: 991647675}
   - {fileID: 554002444}
   - {fileID: 826065159}
-  _gameOverSound: {fileID: 0}
+  _gameOverSound: {fileID: 8300000, guid: 6d38830cd1d87854e9008d41a78e21f8, type: 3}
 --- !u!95 &1641990395
 Animator:
   serializedVersion: 5

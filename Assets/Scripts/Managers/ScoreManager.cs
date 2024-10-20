@@ -54,6 +54,7 @@ public class ScoreManager : MonoBehaviour
         gameOverScreen.gameObject.SetActive(true);
        
         _finalScoreText.text = "Score: " + score;
+        //Time.timeScale = 0f;
     }
 
 }

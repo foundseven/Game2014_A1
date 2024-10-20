@@ -39,6 +39,7 @@ public class HeartSystem : MonoBehaviour
         if(_dead == true)
         {
             //set dead code
+            Time.timeScale = 0f;
             Debug.Log("GAME OVER");
             MusicManager.instance.Stop();
             SoundManager.instance.PlayAudioClip(_gameOverSound);

@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
 
     public void LoadGameScene()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(1);
     }
 
