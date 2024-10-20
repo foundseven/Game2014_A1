@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Time.timeScale = 1.0f;
     }
 
     // Update is called once per frame
@@ -25,7 +25,6 @@ public class GameController : MonoBehaviour
 
     public void LoadGameScene()
     {
-        Time.timeScale = 1f;
         SceneManager.LoadScene(1);
     }
 
@@ -42,6 +41,8 @@ public class GameController : MonoBehaviour
 
     public void Restart()
     {
+        Debug.Log("GAME RESTART");
+        ScoreManager.instance.DisableGOScreen();
         SceneManager.LoadScene(1);
     }
 

@@ -52,9 +52,14 @@ public class ScoreManager : MonoBehaviour
     public void ShowGameOverScreen()
     {
         gameOverScreen.gameObject.SetActive(true);
-       
         _finalScoreText.text = "Score: " + score;
-        //Time.timeScale = 0f;
+
+    }
+
+    public void DisableGOScreen()
+    {
+        gameOverScreen.gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
 
 }

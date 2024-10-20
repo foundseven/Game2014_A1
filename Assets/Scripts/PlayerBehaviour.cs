@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -113,21 +114,24 @@ public class PlayerBehaviour : MonoBehaviour
     {
         foreach (Touch touch in Input.touches)
         {
-            Vector2 targetPosition = _camera.ScreenToWorldPoint(touch.position);
+            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                return;
 
-            _destination = Vector2.Lerp(transform.position, targetPosition, _speed * Time.deltaTime);
+            if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
+            {
+                Vector2 targetPosition = _camera.ScreenToWorldPoint(touch.position);
+                _destination = Vector2.Lerp(transform.position, targetPosition, _speed * Time.deltaTime);
 
-            Vector2 movement = _destination - (Vector2)transform.position;
+                Vector2 movement = _destination - (Vector2)transform.position;
 
-            _animator.SetFloat("moveX", movement.x);
-            _animator.SetFloat("moveY", movement.y);
+                _animator.SetFloat("moveX", movement.x);
+                _animator.SetFloat("moveY", movement.y);
 
-            // Check if the player is moving
-            bool isMoving = movement.sqrMagnitude > 0.01f; // Small threshold to detect movement
-            _animator.SetBool("isMoving", isMoving);
-
-            //_destination = _camera.ScreenToWorldPoint(touch.position);
-            //_destination = Vector2.Lerp(transform.position, _destination, _speed * Time.deltaTime);
+                // Check if the player is moving
+                bool isMoving = movement.sqrMagnitude > 0.01f; // Small threshold to detect movement
+                _animator.SetBool("isMoving", isMoving);
+            }
+            break;
         }
     }
 

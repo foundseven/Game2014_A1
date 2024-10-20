@@ -42,9 +42,10 @@ public class HeartSystem : MonoBehaviour
             Time.timeScale = 0f;
             Debug.Log("GAME OVER");
             MusicManager.instance.Stop();
-            SoundManager.instance.PlayAudioClip(_gameOverSound);
             ScoreManager.instance.ShowGameOverScreen();
         }
+        else
+            Time.timeScale = 1f;
     }
 
     public void TakeHeartDamage(int d)
