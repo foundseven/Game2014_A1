@@ -24,6 +24,8 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField]
     AudioClip _hitSound;
 
+    public GameObject _explosionEffect;
+
     SpriteRenderer _spriteRenderer;
 
     // Start is called before the first frame update
@@ -91,16 +93,19 @@ public class EnemyBehaviour : MonoBehaviour
         {
             Debug.Log("The enemy collided with the player!");
             SoundManager.instance.PlayAudioClip(_hitSound);
-            
             //add logic so that we add points accordingly
-            if(_spriteRenderer.color == PlayerBehaviour.instance.CurrentColor)
+            if (_spriteRenderer.color == PlayerBehaviour.instance.CurrentColor)
             {
                 ScoreManager.instance.ChangeScore(25);
+               Instantiate(_explosionEffect, transform.position, Quaternion.identity);
+                Debug.Log("Explosion instantiated at: " + transform.position);
+
             }
             else
             {
                 Debug.Log("NO POINTS!");
-                ScoreManager.instance.DecreaseScore(25);
+                Instantiate(_explosionEffect, transform.position, Quaternion.identity);
+                Debug.Log("Explosion instantiated at: " + transform.position); ScoreManager.instance.DecreaseScore(25);
                 PlayerBehaviour.instance.LoseLife();
             }
             //is the enemy and the player the same color?

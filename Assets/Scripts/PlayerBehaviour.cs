@@ -107,10 +107,10 @@ public class PlayerBehaviour : MonoBehaviour
             _destination = _camera.ScreenToWorldPoint(touch.position);
             _destination = Vector2.Lerp(transform.position, _destination, _speed * Time.deltaTime);
 
-            if(touch.phase == TouchPhase.Began)
-            {
-                Shoot();
-            }
+            //if(touch.phase == TouchPhase.Began)
+            //{
+            //    Shoot();
+            //}
         }
     }
 

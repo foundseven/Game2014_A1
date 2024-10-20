@@ -8,9 +8,11 @@ public class Projectile : MonoBehaviour
     private float _speed = 3f;
 
     private Vector2 _targetDirection;
+    public GameObject _explosionEffect;
 
     [SerializeField]
     AudioClip _hitSound;
+
 
 
     void Update()
@@ -37,6 +39,8 @@ public class Projectile : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             Debug.Log("Hit the enemy!");
+            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
+            Debug.Log("Explosion instantiated at: " + transform.position);
             SoundManager.instance.PlayAudioClip(_hitSound);
             StartCoroutine(HandleEnemyHit(collision));
         }
