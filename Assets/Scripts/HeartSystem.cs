@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class HeartSystem : MonoBehaviour
@@ -7,6 +8,10 @@ public class HeartSystem : MonoBehaviour
     public static HeartSystem instance { get; set; }
 
     public GameObject[] _hearts;
+
+
+    [SerializeField]
+    AudioClip _gameOverSound;
 
     private int _life;
     private bool _dead;
@@ -25,6 +30,8 @@ public class HeartSystem : MonoBehaviour
 
     void Start()
     {
+        MusicManager.instance.PlayGameMusic();
+        //gameOverScreen.gameObject.SetActive(false);
         _life = _hearts.Length;
     }
     void Update()
@@ -33,6 +40,9 @@ public class HeartSystem : MonoBehaviour
         {
             //set dead code
             Debug.Log("GAME OVER");
+            MusicManager.instance.Stop();
+            SoundManager.instance.PlayAudioClip(_gameOverSound);
+            ScoreManager.instance.ShowGameOverScreen();
         }
     }
 

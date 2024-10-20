@@ -10,6 +10,11 @@ public class ScoreManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI _scoreText;
 
+    [SerializeField]
+    public TextMeshProUGUI _finalScoreText;
+
+    public GameObject gameOverScreen;
+
 
     int score = 0;
     void Awake()
@@ -25,6 +30,7 @@ public class ScoreManager : MonoBehaviour
     }
     void Start()
     {
+        gameOverScreen.gameObject.SetActive(false);
         _scoreText.text = "Score: " + score;
     }
     public void ChangeScore(int amount)
@@ -41,6 +47,13 @@ public class ScoreManager : MonoBehaviour
     public void UpdateScoreUI()
     {
         _scoreText.text = "Score: " + score;
+    }
+
+    public void ShowGameOverScreen()
+    {
+        gameOverScreen.gameObject.SetActive(true);
+       
+        _finalScoreText.text = "Score: " + score;
     }
 
 }

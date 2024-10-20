@@ -207,7 +207,6 @@ public class PlayerBehaviour : MonoBehaviour
     public void LoseLife()
     {
         Debug.Log($"Lives left: {_lives}");
-
         HeartSystem.instance.TakeHeartDamage(1);
     }
 }

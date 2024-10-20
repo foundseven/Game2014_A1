@@ -29,7 +29,7 @@ public class MusicManager : MonoBehaviour
     public void PlayGameMusic()
     {
         _audioSource.clip = _gameMusic;
-        _audioSource.volume = .5f;
+        _audioSource.volume = .3f;
         _audioSource.loop = true;
         _audioSource.Play();
     }

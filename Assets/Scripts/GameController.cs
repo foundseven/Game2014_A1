@@ -39,6 +39,11 @@ public class GameController : MonoBehaviour
         PlayerBehaviour.instance.Shoot();
     }
 
+    public void Restart()
+    {
+        SceneManager.LoadScene(1);
+    }
+
     void PlayButtonPressSound()
     {
         SoundManager.instance.PlayAudioClip(_buttonPressSound);
