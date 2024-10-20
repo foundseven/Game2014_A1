@@ -34,12 +34,15 @@ public class PlayerBehaviour : MonoBehaviour
     Vector2 _destination;
     public SpriteRenderer _spriteRenderer;
     private ColorManager _colorManager;
+    private Animator _animator;
 
     //getters n setters if needed
     public Color CurrentColor { get; private set; }
 
     void Awake()
     {
+        _animator = GetComponent<Animator>();
+
         if(instance == null)
         {
             instance = this;
@@ -97,20 +100,34 @@ public class PlayerBehaviour : MonoBehaviour
         float axisX = Input.GetAxisRaw("Horizontal") * _speed * Time.deltaTime;
         float axisY = Input.GetAxisRaw("Vertical") * _speed * Time.deltaTime;
 
+        _animator.SetFloat("moveX", axisX);
+        _animator.SetFloat("moveY", axisY);
+
+        bool isMoving = axisX != 0 || axisY != 0;
+        _animator.SetBool("isMoving", isMoving);
         //make the movement do its thing
         _destination = new Vector3(axisX + transform.position.x, axisY + transform.position.y, 0);
+
     }
     void GetTouchInput()
     {
         foreach (Touch touch in Input.touches)
         {
-            _destination = _camera.ScreenToWorldPoint(touch.position);
-            _destination = Vector2.Lerp(transform.position, _destination, _speed * Time.deltaTime);
+            Vector2 targetPosition = _camera.ScreenToWorldPoint(touch.position);
 
-            //if(touch.phase == TouchPhase.Began)
-            //{
-            //    Shoot();
-            //}
+            _destination = Vector2.Lerp(transform.position, targetPosition, _speed * Time.deltaTime);
+
+            Vector2 movement = _destination - (Vector2)transform.position;
+
+            _animator.SetFloat("moveX", movement.x);
+            _animator.SetFloat("moveY", movement.y);
+
+            // Check if the player is moving
+            bool isMoving = movement.sqrMagnitude > 0.01f; // Small threshold to detect movement
+            _animator.SetBool("isMoving", isMoving);
+
+            //_destination = _camera.ScreenToWorldPoint(touch.position);
+            //_destination = Vector2.Lerp(transform.position, _destination, _speed * Time.deltaTime);
         }
     }
 

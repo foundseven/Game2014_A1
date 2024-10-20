@@ -2895,6 +2895,7 @@ GameObject:
   - component: {fileID: 1641990389}
   - component: {fileID: 1641990394}
   - component: {fileID: 1641990393}
+  - component: {fileID: 1641990395}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2966,7 +2967,7 @@ SpriteRenderer:
   m_SortingLayerID: 1611331489
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 1377061484, guid: 2e3e9e7952dbbc6489276ca8305cf390, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2987,7 +2988,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1516295620}
@@ -3025,9 +3026,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0056620045, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.086672984
 --- !u!114 &1641990394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3045,6 +3046,27 @@ MonoBehaviour:
   - {fileID: 554002444}
   - {fileID: 826065159}
   _gameOverSound: {fileID: 0}
+--- !u!95 &1641990395
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641990388}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f7f0913bdc274d64f9dcfe81fd2ccc99, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2111979369
 GameObject:
   m_ObjectHideFlags: 0
